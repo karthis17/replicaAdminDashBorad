@@ -1,0 +1,215 @@
+<div class="container my-5 pb-5 mb-5">
+  <strong>Product Information</strong>
+
+  <p class="w-100 mt-4">
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Enter Product name</mat-label>
+      <input matInput placeholder="Placeholder" [(ngModel)]="data.title" />
+      <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+    </mat-form-field>
+  </p>
+  <p class="w-100">
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Enter Product Description</mat-label>
+      <input
+        matInput
+        placeholder="Placeholder"
+        [(ngModel)]="data.description"
+      />
+      <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+    </mat-form-field>
+  </p>
+  <p class="w-100">
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Enter Quantity</mat-label>
+      <input
+        type="number"
+        matInput
+        placeholder="Placeholder"
+        [(ngModel)]="data.quantity"
+      />
+      <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+    </mat-form-field>
+  </p>
+  <p class="w-100">
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Enter Price</mat-label>
+      <input
+        type="number"
+        matInput
+        placeholder="Placeholder"
+        [(ngModel)]="data.price"
+      />
+      <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+    </mat-form-field>
+  </p>
+  <p class="w-100">
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Enter Discount Percentage</mat-label>
+      <input
+        type="number"
+        matInput
+        placeholder="Placeholder"
+        [(ngModel)]="data.discount"
+      />
+      <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+    </mat-form-field>
+  </p>
+  <p class="w-100">
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Enter Category</mat-label>
+      <mat-select [(ngModel)]="data.category">
+        <mat-option value="option">Option</mat-option>
+      </mat-select>
+      <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+    </mat-form-field>
+  </p>
+
+  <strong>Add Product images</strong>
+
+  <div class="my-4">
+    <div
+      class="my-3"
+      *ngFor="let image of data.images; let i = index; trackBy: trackByFn"
+    >
+      <label for=""> Image {{ i + 1 }} </label>
+      <input
+        type="file"
+        class="form-control input-file"
+        (change)="addImage($event, i)"
+      />
+    </div>
+    <button
+      class="w-100 my-3"
+      mat-raised-button
+      color="primary"
+      (click)="data.images.push('')"
+    >
+      Add Imgae
+    </button>
+  </div>
+
+  <strong>Additional Information</strong>
+  <div class="my-4">
+    <div
+      *ngFor="let info of data.additionalInfo; let i = index"
+      class="d-flex justify-content-between gap-4"
+    >
+      <p class="w-100">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Enter Info</mat-label>
+          <input
+            matInput
+            placeholder="Placeholder"
+            [(ngModel)]="data.additionalInfo[i].title"
+          />
+          <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+        </mat-form-field>
+      </p>
+      <p class="w-100">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Enter Description</mat-label>
+          <input
+            matInput
+            placeholder="Placeholder"
+            [(ngModel)]="data.additionalInfo[i].description"
+          />
+          <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+        </mat-form-field>
+      </p>
+    </div>
+
+    <button
+      class="w-100 mb-3"
+      mat-raised-button
+      color="primary"
+      (click)="data.additionalInfo.push({ title: '', description: '' })"
+    >
+      Add Info
+    </button>
+  </div>
+
+  <strong>Available Size</strong>
+  <div class="my-3">
+    <div
+      *ngFor="let info of data.availableSize; let i = index"
+      class="d-flex justify-content-between gap-4"
+    >
+      <p class="w-100">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Enter Width</mat-label>
+          <input
+            matInput
+            placeholder="Placeholder"
+            [(ngModel)]="data.availableSize[i].width"
+          />
+          <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+        </mat-form-field>
+      </p>
+      <p class="w-100">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Enter Heigth</mat-label>
+          <input
+            matInput
+            placeholder="Placeholder"
+            [(ngModel)]="data.availableSize[i].height"
+          />
+          <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+        </mat-form-field>
+      </p>
+    </div>
+    <button
+      class="w-100 mb-3"
+      mat-raised-button
+      color="primary"
+      (click)="data.availableSize.push({ width: 0, height: 1 })"
+    >
+      Add Size
+    </button>
+  </div>
+
+  <strong>Available Prit type</strong>
+
+  <div class="my-4">
+    <ng-container *ngFor="let print of data.availablePrintType; let i = index">
+      <p class="w-100">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Enter Discount Percentage</mat-label>
+          <input
+            matInput
+            placeholder="Placeholder"
+            [(ngModel)]="data.availablePrintType[i]"
+          />
+          <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+        </mat-form-field>
+      </p>
+    </ng-container>
+    <button
+      class="w-100 mb-3"
+      mat-raised-button
+      color="primary"
+      (click)="data.availablePrintType.push('')"
+    >
+      Add Print Type
+    </button>
+  </div>
+
+  <strong>Upload Thumbnail</strong>
+
+  <div class="my-4">
+    <input
+      type="file"
+      class="form-control input-file"
+      (change)="addThub($event)"
+    />
+  </div>
+
+  <button
+    class="w-100 my-4"
+    mat-raised-button
+    color="primary"
+    (click)="submit()"
+  >
+    Submit
+  </button>
+</div>

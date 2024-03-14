@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="row p-5">
+    <div *ngFor="let te of tiles" class="col-lg-4">
+      <mat-card
+        class="py-5 w-auto mx-auto d-flex justify-content-center align-items-center"
+      >
+        <mat-icon
+          aria-hidden="false"
+          aria-label="Example home icon"
+          fontIcon="home"
+          class="w-100 fs-1 h-100 text-center"
+        ></mat-icon>
+        <mat-card-content routerLink="{{ te.link }}">{{
+          te.text
+        }}</mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
