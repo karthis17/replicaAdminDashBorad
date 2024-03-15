@@ -1,0 +1,45 @@
+<div class="container">
+  <strong>Category</strong>
+
+  <p class="w-100 mt-4">
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Enter category name</mat-label>
+      <input
+        matInput
+        placeholder="Placeholder"
+        [(ngModel)]="data.categoryName"
+      />
+      <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+    </mat-form-field>
+  </p>
+  <p class="w-100">
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Enter category Description</mat-label>
+      <input
+        matInput
+        placeholder="Placeholder"
+        [(ngModel)]="data.description"
+      />
+      <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+    </mat-form-field>
+  </p>
+
+  <strong>Upload Thumbnail</strong>
+
+  <div class="my-4">
+    <input
+      type="file"
+      class="form-control input-file"
+      (change)="addThub($event)"
+    />
+  </div>
+
+  <button
+    class="w-100 my-4"
+    mat-raised-button
+    color="primary"
+    (click)="submit()"
+  >
+    Submit
+  </button>
+</div>

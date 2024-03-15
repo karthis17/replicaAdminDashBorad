@@ -7,18 +7,19 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { ProductService } from '../service/product.service';
+import { CategoryService } from '../service/category.service';
 
-
+import { MatTableModule } from '@angular/material/table';
 @Component({
   selector: 'app-product',
   standalone: true,
-  imports: [MatFormFieldModule, MatIconModule, MatSelectModule, MatInputModule, CommonModule, FormsModule, MatButtonModule],
+  imports: [MatFormFieldModule, MatIconModule, MatSelectModule, MatInputModule, CommonModule, FormsModule, MatTableModule, MatButtonModule],
   templateUrl: './product.component.html',
   styleUrl: './product.component.css'
 })
 export class ProductComponent {
 
-  constructor(private product: ProductService) { }
+  constructor(private product: ProductService, private category: CategoryService) { }
 
 
   data = {
@@ -27,9 +28,8 @@ export class ProductComponent {
     description: '',
     price: 0,
     discount: 0,
-    category: '',
     thumbnail: '',
-
+    userImage: false,
     images: [""],
 
     additionalInfo: [{
@@ -46,6 +46,16 @@ export class ProductComponent {
     availablePrintType: [""]
   }
 
+  categories: any[] = [];
+
+  ngOnInit() {
+    this.category.getCategory().subscribe((data: any) => { this.categories = data });
+    this.getAll()
+  }
+
+  showUpdate: boolean = false;
+
+  products: any[] = [];
 
 
   addThub(e: any) {
@@ -64,6 +74,39 @@ export class ProductComponent {
   }
 
 
+  getAll() {
+    this.product.get().subscribe((data: any) => this.products = data.product)
+  }
+
+
+  displayedColumns: string[] = ['id', 'name', 'description', 'symbol'];
+
+  delete(id: any) {
+    console.log(id);
+    this.product.delete(id).subscribe(data => console.log(data));
+  }
+
+
+  idToUpdate: any;
+  edit(id: any) {
+    this.data = id;
+    this.idToUpdate = id._id;
+    this.data.availableSize = id.availablePrintSize;
+    id.availablePrintType.map((type: any, i: any) => { this.data.availablePrintType[i] = type._id });
+    this.showUpdate = true;
+
+  }
+
+
+  update() {
+
+    this.product.edit(this.data, this.idToUpdate).subscribe(data => { console.log(data) })
+
+  }
+
+  close() {
+    location.reload();
+  }
 
   submit() {
 

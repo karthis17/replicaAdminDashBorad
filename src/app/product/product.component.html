@@ -57,9 +57,18 @@
   </p>
   <p class="w-100">
     <mat-form-field appearance="outline" class="w-100">
-      <mat-label>Enter Category</mat-label>
-      <mat-select [(ngModel)]="data.category">
-        <mat-option value="option">Option</mat-option>
+      <mat-label>This product accept user image?</mat-label>
+      <mat-select [(ngModel)]="data.userImage">
+        <mat-option
+          *ngFor="
+            let category of [
+              { ok: true, label: 'Yes' },
+              { ok: false, label: 'No' }
+            ]
+          "
+          [value]="category.ok"
+          >{{ category.label }}</mat-option
+        >
       </mat-select>
       <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
     </mat-form-field>
@@ -72,6 +81,12 @@
       class="my-3"
       *ngFor="let image of data.images; let i = index; trackBy: trackByFn"
     >
+      <img
+        *ngIf="showUpdate"
+        style="max-height: 200px"
+        src="{{ data.images[i] }}"
+      />
+
       <label for=""> Image {{ i + 1 }} </label>
       <input
         type="file"
@@ -171,15 +186,23 @@
   <strong>Available Prit type</strong>
 
   <div class="my-4">
-    <ng-container *ngFor="let print of data.availablePrintType; let i = index">
+    <ng-container
+      *ngFor="
+        let print of data.availablePrintType;
+        let i = index;
+        trackBy: trackByFn
+      "
+    >
       <p class="w-100">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Enter Discount Percentage</mat-label>
-          <input
-            matInput
-            placeholder="Placeholder"
-            [(ngModel)]="data.availablePrintType[i]"
-          />
+          <mat-label>Enter Category</mat-label>
+          <mat-select [(ngModel)]="data.availablePrintType[i]">
+            <mat-option
+              *ngFor="let category of categories"
+              [value]="category._id"
+              >{{ category.categoryName }}</mat-option
+            >
+          </mat-select>
           <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
         </mat-form-field>
       </p>
@@ -197,6 +220,11 @@
   <strong>Upload Thumbnail</strong>
 
   <div class="my-4">
+    <img
+      *ngIf="showUpdate"
+      style="max-height: 200px"
+      src="{{ data.thumbnail }}"
+    />
     <input
       type="file"
       class="form-control input-file"
@@ -205,6 +233,7 @@
   </div>
 
   <button
+    *ngIf="!showUpdate"
     class="w-100 my-4"
     mat-raised-button
     color="primary"
@@ -212,4 +241,61 @@
   >
     Submit
   </button>
+  <ng-container *ngIf="showUpdate">
+    <button
+      class="w-100 my-4"
+      mat-raised-button
+      color="primary"
+      (click)="update()"
+    >
+      Update
+    </button>
+    <button
+      class="w-100 my-1"
+      mat-raised-button
+      color="primary"
+      (click)="close()"
+    >
+      Close
+    </button>
+  </ng-container>
+
+  <table mat-table [dataSource]="products" class="mat-elevation-z8">
+    <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>_id</th>
+      <td mat-cell *matCellDef="let element">{{ element._id }}</td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let element">{{ element.title }}</td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef>Description</th>
+      <td mat-cell *matCellDef="let element">{{ element.description }}</td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="symbol">
+      <th mat-header-cell *matHeaderCellDef>Symbol</th>
+      <td mat-cell *matCellDef="let element">
+        <div class="d-flex">
+          <mat-icon (click)="delete(element._id)" class="me-3 red"
+            >delete</mat-icon
+          >
+          <mat-icon (click)="edit(element)" class="me-3 edit">edit</mat-icon>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
 </div>

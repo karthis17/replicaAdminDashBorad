@@ -15,8 +15,8 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class HomeComponent {
   tiles = [
-    { text: "Products", icon: "", link: "/product" },
-    { text: "Add Products", icon: "", link: "" },
     { text: "Products", icon: "", link: "" },
+    { text: "Add Products", icon: "", link: "/product" },
+    { text: "Add category", icon: "", link: "/category" },
   ];
 }

@@ -27,7 +27,7 @@ export class LoginComponent {
     if (this.log.username.length > 0 && this.log.password.length > 0 && this.log.email.length > 0) {
       this.auth.reg(this.log).subscribe(data => {
         console.log(data);
-        localStorage.setItem('token', JSON.stringify(data));
+        localStorage.setItem('token1', JSON.stringify(data));
         this.router.navigate(['']);
       }, error => {
         console.log(error);
@@ -39,7 +39,7 @@ export class LoginComponent {
     if (this.log.password.length > 0 && this.log.email.length > 0) {
       this.auth.login(this.log).subscribe(user => {
         console.log(user);
-        localStorage.setItem('token', JSON.stringify(user));
+        localStorage.setItem('token1', JSON.stringify(user));
         this.router.navigate(['']);
       }, error => {
         console.log(error);
