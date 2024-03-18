@@ -10,10 +10,11 @@ import { ProductService } from '../service/product.service';
 import { CategoryService } from '../service/category.service';
 
 import { MatTableModule } from '@angular/material/table';
+import { PaymentComponent, Product } from '../payment/payment.component';
 @Component({
   selector: 'app-product',
   standalone: true,
-  imports: [MatFormFieldModule, MatIconModule, MatSelectModule, MatInputModule, CommonModule, FormsModule, MatTableModule, MatButtonModule],
+  imports: [MatFormFieldModule, MatIconModule, MatSelectModule, MatInputModule, CommonModule, FormsModule, MatTableModule, MatButtonModule, PaymentComponent],
   templateUrl: './product.component.html',
   styleUrl: './product.component.css'
 })
@@ -45,6 +46,8 @@ export class ProductComponent {
 
     availablePrintType: [""]
   }
+
+  prod!: Product
 
   categories: any[] = [];
 

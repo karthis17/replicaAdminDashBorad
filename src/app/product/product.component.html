@@ -291,6 +291,12 @@
             >delete</mat-icon
           >
           <mat-icon (click)="edit(element)" class="me-3 edit">edit</mat-icon>
+          <button
+            class="btn btn-primary"
+            (click)="prod = element; prod['name'] = element.title"
+          >
+            Order
+          </button>
         </div>
       </td>
     </ng-container>
@@ -299,3 +305,7 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
 </div>
+
+<ng-container *ngIf="prod">
+  <app-payment [product]="prod"></app-payment>
+</ng-container>

@@ -1,0 +1,13 @@
+<div style="display: inline-block">
+  <img [src]="imageUrl" alt="" width="100px" height="100px" />
+  <p>{{ product.name }}</p>
+  <p>
+    <b>Amount:- Rs. {{ product.amount }}</b>
+  </p>
+  <form (ngSubmit)="submitForm()">
+    <input type="hidden" name="name" [value]="product.name" />
+    <input type="hidden" name="amount" [value]="product.amount" />
+    <input type="hidden" name="description" [value]="product.description" />
+    <input type="submit" value="Pay Now" />
+  </form>
+</div>
